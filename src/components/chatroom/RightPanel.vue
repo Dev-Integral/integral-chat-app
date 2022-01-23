@@ -1,9 +1,9 @@
 <template>
-  <div>Hello Dashboard</div>
+    <div>RightPanel</div>
 </template>
 
 <script>
 export default {
-  name: 'Dashboard'
+    name: 'RightPanel'
 }
 </script>
