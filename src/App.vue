@@ -12,4 +12,26 @@
 body{
   margin: 20px;
 }
+p, h1, h2,h3,h4,h5,h6{
+  margin: 0;
+}
+::-webkit-scrollbar {
+    width: 4px;
+    height: 1px  !important;
+    border-radius: 3rem !important;
+}
+
+
+::-webkit-scrollbar-track {
+    background-color: #f3f6fb;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #fbfbfb;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: green;
+}
+
 </style>

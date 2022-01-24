@@ -16,39 +16,37 @@
         </div>
       </div>
     </section>
-    <section class="section-three">
-      <div class="title">
-        <div class="grouped">
-          <h4>Active Conversations</h4>
-          <span class="indicator">4</span>
-        </div>
-        <p>></p>
-      </div>
-      <div class="content">
-          <div>
-              <img />
-              <p>Henry Boyd</p>
-          </div>
-      </div>
-    </section>
+    <ConversationList :convList="convList" :convTitle="'Active Conversations'" />
+    <ConversationList :convList="convList" :convTitle="'Archived Conversations'" />
+
   </div>
 </template>
 
 <script>
 import flash_logo from "../../assets/flash_logo.png";
 import passport from "../../assets/passport.jpg";
+import woman_logo from "../../assets/woman.png";
+
+import ConversationList from "./ConversationList.vue";
+
 export default {
   name: "LeftPanel",
+  components: {ConversationList},
   data() {
     return { flash_logo, passport };
+  },
+  methods: {
+    convList: () => [
+      { image: passport, name: "Ayoola Taiwo" },
+      { image: flash_logo, name: "Benjamin Maradesa" },
+      { image: woman_logo, name: "Kelly Beauty" },
+      { image: "", name: "Boyega Amodu" },
+    ],
   },
 };
 </script>
 
 <style scoped>
-.left-panel-container {
-  /* background: #f1f1f1; */
-}
 .section-one img {
   width: 30px;
   height: 35px;
@@ -89,25 +87,5 @@ export default {
 .section-two h2,
 .section-two p {
   margin-bottom: 10px;
-}
-h2,
-p {
-  margin: 0px;
-}
-.section-three .title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.section-three .title .grouped {
-  display: flex;
-  align-items: center;
-}
-.section-three .indicator {
-  background: #f3f6fb;
-  padding: 5px 8px;
-  border-radius: 50%;
-  height: 100%;
-  margin-left: 10px;
 }
 </style>

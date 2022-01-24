@@ -20,7 +20,8 @@ export default {
 <style scoped>
 .chat-container{
   display: grid;
-  grid-template-columns:  1fr 2fr 1fr;
+  grid-template-columns:  1fr 3fr 1fr;
   gap: 30px;
+  height: 92vh;
 }
 </style>
