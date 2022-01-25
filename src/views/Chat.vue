@@ -1,7 +1,7 @@
 <template>
   <div class="chat-container">
-    <LeftPanel />
-    <MiddlePanel />
+    <LeftPanel v-on:converser="passConverser" />
+    <MiddlePanel :friend="converser"/>
     <RightPanel />
   </div>
 </template>
@@ -13,7 +13,18 @@ import RightPanel from '../components/chatroom/RightPanel';
 
 export default {
   name: "Chat",
-  components: {LeftPanel, MiddlePanel, RightPanel}
+  components: {LeftPanel, MiddlePanel, RightPanel},
+  data(){
+    return{
+      converser: null
+    }
+  },
+  methods: {
+    passConverser(e){
+      console.log(e)
+      this.converser = e;
+    }
+  }
 };
 </script>
 
@@ -22,6 +33,6 @@ export default {
   display: grid;
   grid-template-columns:  1fr 3fr 1fr;
   gap: 30px;
-  height: 92vh;
+  height: 90vh;
 }
 </style>

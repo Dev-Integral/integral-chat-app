@@ -16,9 +16,13 @@
         </div>
       </div>
     </section>
-    <ConversationList :convList="convList" :convTitle="'Active Conversations'" />
-    <ConversationList :convList="convList" :convTitle="'Archived Conversations'" />
-
+    <section class="section-three">
+      <ConversationList
+        :convList="convList"
+        :convTitle="'Active Conversations'"
+        v-on:selectedConverser="setConverser"
+      />
+    </section>
   </div>
 </template>
 
@@ -31,22 +35,34 @@ import ConversationList from "./ConversationList.vue";
 
 export default {
   name: "LeftPanel",
-  components: {ConversationList},
+  components: { ConversationList },
+  emits: ['converser'],
   data() {
-    return { flash_logo, passport };
+    return { flash_logo, passport, converser: null };
   },
   methods: {
     convList: () => [
-      { image: passport, name: "Ayoola Taiwo" },
-      { image: flash_logo, name: "Benjamin Maradesa" },
-      { image: woman_logo, name: "Kelly Beauty" },
-      { image: "", name: "Boyega Amodu" },
+      { image: passport, name: "Ayoola Taiwo", id: 1 },
+      { image: flash_logo, name: "Benjamin Maradesa", id: 2 },
+      { image: woman_logo, name: "Kelly Beauty", id: 3 },
+      { image: "", name: "Boyega Amodu", id: 4 },
+      { image: woman_logo, name: "Kelly Beauty", id: 5 },
+      { image: passport, name: "Ayoola Taiwo", id: 6 },
+      { image: flash_logo, name: "Benjamin Maradesa", id: 7 },
+      { image: woman_logo, name: "Kelly Beauty", id: 8 },
+      { image: "", name: "Boyega Amodu", id: 9 },
+      { image: woman_logo, name: "Kelly Beauty", id: 10 },
     ],
+    setConverser(data){
+        this.converser = data;
+        this.$emit('converser', data);
+    }
   },
 };
 </script>
 
 <style scoped>
+
 .section-one img {
   width: 30px;
   height: 35px;
@@ -56,9 +72,6 @@ export default {
   display: flex;
   align-items: center;
 }
-.section-one .content-one h3 {
-  margin: 0;
-}
 
 .section-two {
   display: flex;
@@ -66,9 +79,13 @@ export default {
   justify-content: center;
   background: #f3f6fb;
   margin-top: 30px;
+  margin-bottom: 30px;
   border-radius: 15px;
   padding: 20px;
   border: 1px solid #f3f3f3;
+}
+.section-two .content h2{
+    margin-bottom: 10px ;
 }
 .section-two .content,
 .section-two .content > div {
@@ -87,5 +104,8 @@ export default {
 .section-two h2,
 .section-two p {
   margin-bottom: 10px;
+}
+.section-three, .section-four{
+    /* margin-bottom: 30px; */
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <section class="section-three">
+    <section class="conv-list">
       <div class="title">
         <div class="grouped">
           <h4>{{convTitle}}</h4>
@@ -13,7 +13,7 @@
           v-for="(item, index) in convList()"
           :key="index"
           :class="{ 'active-conv': activeConv === index }"
-          @click="setActiveConv(index)"
+          @click="setActiveConv(index, item)"
         >
           <div>
             <img :src="item.image" v-if="item.image" />
@@ -28,12 +28,14 @@
 <script>
 export default {
     name: 'ConversationList',
+  emits: ['selectedConverser'],
     props: ['convList', 'convTitle'],
     data() {
     return { activeConv: 0 };
   },
   methods: {
-    setActiveConv(id) {
+    setActiveConv(id, user) {
+        this.$emit('selectedConverser', user)
       this.activeConv = id;
     },
   },
@@ -45,34 +47,34 @@ h2,
 p {
   margin: 0px;
 }
-.section-three .title {
+.conv-list .title {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.section-three .title .grouped {
+.conv-list .title .grouped {
   display: flex;
   align-items: center;
 }
-.section-three .indicator {
+.conv-list .indicator {
   background: #f3f6fb;
   padding: 5px 8px;
   border-radius: 50%;
   height: 100%;
   margin-left: 10px;
 }
-.section-three .content{
+.conv-list .content{
     overflow-y: scroll;
-    height: 100px;
+    height: 210px;
 }
-.section-three .content .item {
+.conv-list .content .item {
   display: flex;
   align-items: center;
   border-radius: 10px;
   padding: 5px 10px;
   cursor: pointer;
 }
-.section-three .content .item img, .image-sub {
+.conv-list .content .item img, .image-sub {
   width: 50px;
   height: 50px;
   object-fit: cover;

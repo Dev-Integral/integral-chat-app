@@ -27,11 +27,13 @@ p, h1, h2,h3,h4,h5,h6{
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #fbfbfb;
+    background-color: #D3E5F5;
+    cursor: pointer;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: green;
+    background-color: #2c3e50;
+    cursor: pointer;
 }
 
 </style>
