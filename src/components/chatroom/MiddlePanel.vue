@@ -103,6 +103,8 @@ export default {
 </script>
 
 <style scoped>
+p{font-family: cursive;}
+
 .middle-panel-container {
   background: #f3f6fb;
   border-radius: 15px;
@@ -112,6 +114,7 @@ export default {
   height: 90vh;
   justify-content: space-between;
   position: relative;
+  border: 1px solid #e0e1e4;
 }
 .friend {
   /* height: 80%; */

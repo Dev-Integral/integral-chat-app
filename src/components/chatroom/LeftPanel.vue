@@ -82,7 +82,7 @@ export default {
   margin-bottom: 30px;
   border-radius: 15px;
   padding: 20px;
-  border: 1px solid #f3f3f3;
+  border: 1px solid #e0e1e4;
 }
 .section-two .content h2{
     margin-bottom: 10px ;

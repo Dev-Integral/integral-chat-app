@@ -3,8 +3,9 @@
 </template>
 
 <style>
+@import url("https://fonts.googleapis.com/css?family=Poppins");
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', Arial, sans-serif;
   color: #2c3e50;
   background: #fff;
 
@@ -23,7 +24,8 @@ p, h1, h2,h3,h4,h5,h6{
 
 
 ::-webkit-scrollbar-track {
-    background-color: #f3f6fb;
+  border: 1px solid #e0e1e4;
+    /* background-color: #f3f3f3; */
 }
 
 ::-webkit-scrollbar-thumb {
