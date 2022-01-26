@@ -19,7 +19,9 @@
                 'friend-background': friend.id === messageObject.user.id,
               }"
             >
-              <p>{{ messageObject.message }}</p>
+              <p :id="`${messagesArray.length - 1 === index ? 'last' : index}`">
+                {{ messageObject.message }}
+              </p>
             </div>
             <span
               class="stamp-font"
@@ -31,17 +33,16 @@
       </div>
     </div>
     <div v-else>Select a chat</div>
-    <div class="input-field">
-      <input type="text" placeholder="Enter your message here" />
-      <div class="submit-button" @click="handleSubmit">send</div>
-    </div>
+    <InputField v-on:input="populateInput" />
   </div>
 </template>
 
 <script>
 import UserSmallImage from "./UserSmallImage.vue";
+import InputField from "./InputField";
+
 export default {
-  components: { UserSmallImage },
+  components: { UserSmallImage, InputField },
   name: "MiddlePanel",
   props: ["friend", "user"],
   data() {
@@ -58,10 +59,46 @@ export default {
           message: "hi henry, I'm fine fdl fdd reoker kerpk",
           timestamp: "9h ago",
         },
+        {
+          user: { id: 2, image: "", name: "Bill Gate" },
+          message: "hi henry, I'm fine fdl fdd reoker kerpk",
+          timestamp: "9h ago",
+        },
+        {
+          user: { id: 2, image: "", name: "Bill Gate" },
+          message: "hi henry, I'm fine fdl fdd reoker kerpk",
+          timestamp: "9h ago",
+        },
+        {
+          user: { id: 2, image: "", name: "Bill Gate" },
+          message: "hi henry, I'm fine fdl fdd reoker kerpk",
+          timestamp: "9h ago",
+        },
+        {
+          user: { id: 2, image: "", name: "Bill Gate" },
+          message: "hi henry, I'm fine fdl fdd reoker kerpk",
+          timestamp: "9h ago",
+        },
+        {
+          user: { id: 2, image: "", name: "Bill Gate" },
+          message: "hi henry, I'm fine fdl fdd reoker kerpk",
+          timestamp: "9h ago",
+        },
       ],
     };
   },
-  methods: {},
+  methods:{
+    populateInput(data){
+      this.messagesArray.push({
+        message: data,
+        user: this.user,
+        timestamp: new Date(Date.now()).getHours()
+        });
+    }
+  },
+  updated() {
+    document.getElementById("last") ? document.getElementById("last").scrollIntoView() : null;
+  },
 };
 </script>
 
@@ -69,15 +106,21 @@ export default {
 .middle-panel-container {
   background: #f3f6fb;
   border-radius: 15px;
-  padding: 20px ;
+  padding: 20px;
   display: flex;
   flex-direction: column;
+  height: 90vh;
   justify-content: space-between;
   position: relative;
+}
+.friend {
+  /* height: 80%; */
+  overflow: scroll;
 }
 .image-message {
   display: flex;
   max-width: 70%;
+  margin-bottom: 10px;
 }
 .friend-style {
   display: flex;
@@ -89,11 +132,13 @@ export default {
 }
 .user-background {
   background: #fff;
-  color: #525c72;
+  color: #525b72;
   padding: 15px;
   border-radius: 12px;
   margin-right: 10px;
   margin-bottom: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.005);
+  font-size: 14px;
 }
 .friend-background {
   background: #1a233b;
@@ -102,41 +147,15 @@ export default {
   border-radius: 12px;
   margin-right: 10px;
   margin-bottom: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 20px 0 rgba(0, 0, 0, 0.005);
+  font-size: 14px;
 }
 .stamp-font {
-  font-size: 14px;
+  font-size: 12px;
   color: #525c70;
 }
 .stamp-style {
   float: right;
   margin-right: 10px;
-}
-.input-field {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-
-}
-.input-field input{
-  outline: none;
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  border: 1px solid;
-  padding: 3px 5px;
-}
-.submit-button{
-  height: 100%;
-  border: 1px solid;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px 10px;
-  margin-left: 10px;
-  border-radius: 8px;
-  cursor: pointer;
 }
 </style>
