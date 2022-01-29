@@ -33,13 +33,14 @@
       </div>
     </div>
     <div v-else>Select a chat</div>
-    <InputField v-on:input="populateInput" />
+    <InputField v-on:input="addMessage" />
   </div>
 </template>
 
 <script>
 import UserSmallImage from "./UserSmallImage.vue";
 import InputField from "./InputField";
+import io from "socket.io-client";
 
 export default {
   components: { UserSmallImage, InputField },
@@ -47,63 +48,41 @@ export default {
   props: ["friend", "user"],
   data() {
     return {
-      messagesArray: [
-        {
-          user: { id: 1, image: "", name: "Ayoola Taiwo" },
-          message:
-            "hello Bill, trust you doing greatsdljndjd, sweowe wwkedoid ewdoewoidew ewoideowiewje nowedoewnwe3do3 o32w3rdnoawlwoe dweoidoweid eowdweoewe",
-          timestamp: "9h ago",
-        },
-        {
-          user: { id: 2, image: "", name: "Bill Gate" },
-          message: "hi henry, I'm fine fdl fdd reoker kerpk",
-          timestamp: "9h ago",
-        },
-        {
-          user: { id: 2, image: "", name: "Bill Gate" },
-          message: "hi henry, I'm fine fdl fdd reoker kerpk",
-          timestamp: "9h ago",
-        },
-        {
-          user: { id: 2, image: "", name: "Bill Gate" },
-          message: "hi henry, I'm fine fdl fdd reoker kerpk",
-          timestamp: "9h ago",
-        },
-        {
-          user: { id: 2, image: "", name: "Bill Gate" },
-          message: "hi henry, I'm fine fdl fdd reoker kerpk",
-          timestamp: "9h ago",
-        },
-        {
-          user: { id: 2, image: "", name: "Bill Gate" },
-          message: "hi henry, I'm fine fdl fdd reoker kerpk",
-          timestamp: "9h ago",
-        },
-        {
-          user: { id: 2, image: "", name: "Bill Gate" },
-          message: "hi henry, I'm fine fdl fdd reoker kerpk",
-          timestamp: "9h ago",
-        },
-      ],
+      messagesArray: []
     };
   },
-  methods:{
-    populateInput(data){
+  methods: {
+    addMessage(message) {
       this.messagesArray.push({
-        message: data,
-        user: this.user,
-        timestamp: new Date(Date.now()).getHours()
-        });
-    }
+        message: message,
+        user: {...this.user},
+        timestamp: new Date(Date.now()).getHours(),
+      });
+      this.socketInstance.emit("message", {
+        message: message,
+        user: {...this.user},
+        timestamp: new Date(Date.now()).getHours(),
+      });
+    },
+  },
+  mounted() {
+    this.socketInstance = io("http://localhost:3000");
+    this.socketInstance.on("message:broadcasted", (data)=> {
+      this.messagesArray.push(data);
+    })
   },
   updated() {
-    document.getElementById("last") ? document.getElementById("last").scrollIntoView() : null;
+    document.getElementById("last")
+      ? document.getElementById("last").scrollIntoView()
+      : null;
   },
 };
 </script>
 
 <style scoped>
-p{font-family: cursive;}
+p {
+  font-family: cursive;
+}
 
 .middle-panel-container {
   background: #f3f6fb;
