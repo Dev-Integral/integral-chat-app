@@ -5,36 +5,36 @@
       <div class="input-field">
         <input
           type="text"
-          v-model="username"
+          v-model="formData.username"
           placeholder="Enter your user name"
         />
       </div>
       <div class="input-field">
         <input
           type="text"
-          v-model="firstName"
+          v-model="formData.firstName"
           placeholder="Enter your first name"
         />
       </div>
     </div>
     <div class="grouped-field">
-    <div class="input-field">
-      <input
-        type="text"
-        v-model="lastName"
-        placeholder="Enter your last name"
-      />
+      <div class="input-field">
+        <input
+          type="text"
+          v-model="formData.lastName"
+          placeholder="Enter your last name"
+        />
+      </div>
+      <div class="input-field">
+        <input
+          type="email"
+          v-model="formData.emailAddress"
+          placeholder="Enter your email"
+        />
+      </div>
     </div>
     <div class="input-field">
-      <input
-        type="text"
-        v-model="emailAddress"
-        placeholder="Enter your email"
-      />
-    </div>
-    </div>
-    <div class="input-field">
-      <input type="text" v-model="image" placeholder="Enter your image" />
+      <button @click="handleSubmit">Join</button>
     </div>
   </div>
 </template>
@@ -45,11 +45,34 @@ export default {
   components: {},
   data () {
     return {
-      username: '',
-      firstName: '',
-      lastName: '',
-      emailAddress: '',
-      image: ''
+      formData: {
+        username: '',
+        firstName: '',
+        lastName: '',
+        emailAddress: '',
+        // image: ''
+      },
+      error: {
+        usernameError: false,
+        firstNameError: false,
+        lastNameError: false,
+        emailAddressError: false,
+        // imageError: false
+      }
+    }
+  },
+  methods: {
+    handleSubmit () {
+      const emailFormat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      Object.keys(this.formData).forEach(field => {
+        if (
+          !this.formData[field] ||
+          this.formData[field].length < 3 ||
+          (field === 'emailAddress' && !emailFormat.test(this.formData[field]))
+        ) {
+          this.error[`${field}Error`] = true
+        }
+      });
     }
   }
 }
@@ -65,7 +88,7 @@ export default {
   width: 100%;
   height: 100%;
 }
-.grouped-field{
+.grouped-field {
   display: flex;
   gap: 15px;
 }
