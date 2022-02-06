@@ -1,7 +1,9 @@
 <template>
   <div class="input-field">
     <input type="text" v-model="input" placeholder="Enter your message here" />
-    <div class="submit-button" @click="handleSubmit">send</div>
+    <div class="submit-button" @click="handleSubmit">
+      send <svg color='white' style="margin-left: 5px" viewBox="0 0 24 24" width="16" height="16" class="ekdr8vow dhq51u3o"><path fill="currentColor" d="M1.101 21.757 23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path></svg>
+    </div>
   </div>
 </template>
 
