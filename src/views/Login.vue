@@ -7,14 +7,20 @@
           type="text"
           v-model="formData.username"
           placeholder="Enter your user name"
+          @change="validateInput"
         />
+        <p v-if="error.usernameError" class="error-message">Invalid username</p>
       </div>
       <div class="input-field">
         <input
           type="text"
           v-model="formData.firstName"
+          @change="validateInput"
           placeholder="Enter your first name"
         />
+        <p v-if="error.firstNameError" class="error-message">
+          Invalid first name
+        </p>
       </div>
     </div>
     <div class="grouped-field">
@@ -22,20 +28,26 @@
         <input
           type="text"
           v-model="formData.lastName"
+          @change="validateInput"
           placeholder="Enter your last name"
         />
+        <p v-if="error.lastNameError" class="error-message">
+          Invalid last name
+        </p>
       </div>
       <div class="input-field">
         <input
           type="email"
           v-model="formData.emailAddress"
           placeholder="Enter your email"
+          @change="validateInput"
         />
+        <p v-if="error.emailAddressError" class="error-message">
+          Invalid Email Address
+        </p>
       </div>
     </div>
-    <div class="input-field">
-      <button @click="handleSubmit">Join</button>
-    </div>
+    <button @click="handleSubmit">Join</button>
   </div>
 </template>
 
@@ -49,21 +61,22 @@ export default {
         username: '',
         firstName: '',
         lastName: '',
-        emailAddress: '',
+        emailAddress: ''
         // image: ''
       },
       error: {
         usernameError: false,
         firstNameError: false,
         lastNameError: false,
-        emailAddressError: false,
+        emailAddressError: false
         // imageError: false
-      }
+      },
+      validForm: false
     }
   },
   methods: {
-    handleSubmit () {
-      const emailFormat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    validateInput () {
+      const emailFormat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       Object.keys(this.formData).forEach(field => {
         if (
           !this.formData[field] ||
@@ -71,8 +84,16 @@ export default {
           (field === 'emailAddress' && !emailFormat.test(this.formData[field]))
         ) {
           this.error[`${field}Error`] = true
+          this.validForm = false
+        } else {
+          this.error[`${field}Error`] = false
+          this.validForm = true
         }
-      });
+      })
+    },
+    handleSubmit () {
+      console.log(this.validForm)
+      this.validForm ? alert('Form is ready') : alert('Fill the form')
     }
   }
 }
@@ -108,5 +129,12 @@ export default {
   border: none;
   background: none;
   padding-left: 10px;
+}
+.error-message {
+  color: tomato;
+  font-size: 12px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-left: 12px;
 }
 </style>
