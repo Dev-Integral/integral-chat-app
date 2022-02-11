@@ -1,6 +1,6 @@
 <template>
   <div class="signup-container">
-    Integral chat app
+    <h2 class="">Integral chat app</h2>
     <div class="grouped-field">
       <div class="input-field">
         <input
