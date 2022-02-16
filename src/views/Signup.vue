@@ -8,6 +8,7 @@
           v-model="formData.username"
           placeholder="Enter your user name"
           @change="validateInput"
+          name="username"
         />
         <p v-if="error.usernameError" class="error-message">Invalid username</p>
       </div>
@@ -17,6 +18,7 @@
           v-model="formData.firstName"
           @change="validateInput"
           placeholder="Enter your first name"
+          name="firstName"
         />
         <p v-if="error.firstNameError" class="error-message">
           Invalid first name
@@ -30,6 +32,7 @@
           v-model="formData.lastName"
           @change="validateInput"
           placeholder="Enter your last name"
+          name="lastName"
         />
         <p v-if="error.lastNameError" class="error-message">
           Invalid last name
@@ -41,6 +44,7 @@
           v-model="formData.emailAddress"
           placeholder="Enter your email"
           @change="validateInput"
+          name="emailAddress"
         />
         <p v-if="error.emailAddressError" class="error-message">
           Invalid Email Address
@@ -75,25 +79,43 @@ export default {
     }
   },
   methods: {
-    validateInput () {
+    validateInput (e) {
+      let inputName = e.target.name;
       const emailFormat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      Object.keys(this.formData).forEach(field => {
-        if (
-          !this.formData[field] ||
-          this.formData[field].length < 3 ||
-          (field === 'emailAddress' && !emailFormat.test(this.formData[field]))
-        ) {
-          this.error[`${field}Error`] = true
-          this.validForm = false
-        } else {
-          this.error[`${field}Error`] = false
-          this.validForm = true
-        }
-      })
+
+      switch (inputName) {
+        case 'username':
+          !this.formData[inputName] || this.formData[inputName].length < 3?
+          this.error[`${inputName}Error`] = true : this.error[`${inputName}Error`] = false;  
+          break;
+        case 'firstName':
+          !this.formData[inputName] || this.formData[inputName].length < 3?
+          this.error[`${inputName}Error`] = true : this.error[`${inputName}Error`] = false;  
+          break;
+        case 'lastName':
+          !this.formData[inputName] || this.formData[inputName].length < 3?
+          this.error[`${inputName}Error`] = true : this.error[`${inputName}Error`] = false;  
+          break;
+        case 'emailAddress':
+          !emailFormat.test(this.formData[inputName]) ?
+          this.error[`${inputName}Error`] = true : this.error[`${inputName}Error`] = false;
+          break;
+        default:
+          break;
+      }
     },
     handleSubmit () {
-      console.log(this.validForm)
-      this.validForm ? alert('Form is ready') : alert('Fill the form')
+      let errorExist = [];
+      Object.keys(this.error).find(field => {
+        if(this.error[field]){
+          errorExist.push(field);
+        }
+      })
+      if(!errorExist.length) {
+        alert('Fill the fields appropriately')
+      }else{
+        localStorage.setItem('chat-user-data', this.formData);
+      }
     }
   }
 }
